@@ -19,6 +19,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font smallerFont = new Font("Arial", Font.PLAIN, 28);
 	Rocketship rocket = new Rocketship(250, 700, 50, 50);
 
+
 	@Override
 	public void paintComponent(Graphics g) {
 		Timer frameDraw = new Timer(1000 / 100, this);
@@ -107,23 +108,23 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				currentState++;
 			}
 		}
-		if (e.getKeyCode() == KeyEvent.VK_UP&&rocket.y>=0) {
+		if (e.getKeyCode() == KeyEvent.VK_UP && rocket.y >= 0) {
 			System.out.println("up");
 			rocket.down();
 		}
-		if (e.getKeyCode() == KeyEvent.VK_DOWN&&rocket.y<=700) {
+		if (e.getKeyCode() == KeyEvent.VK_DOWN && rocket.y <= 700) {
 			System.out.println("down");
 			rocket.up();
 		}
-		if (e.getKeyCode() == KeyEvent.VK_LEFT&&rocket.x>=0) {
+		if (e.getKeyCode() == KeyEvent.VK_LEFT && rocket.x >= 0) {
 			System.out.println("left");
 			rocket.left();
 		}
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT&&rocket.x<=450) {
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT && rocket.x <= 450) {
 			System.out.println("right");
-		rocket.right();
+			rocket.right();
 		}
-		
+
 	}
 
 	@Override
