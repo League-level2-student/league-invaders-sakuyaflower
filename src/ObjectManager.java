@@ -2,16 +2,15 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ObjectManager extends GameObject {
-	Rocketship ship;
+public class ObjectManager {
+	Rocketship rocket;
 	ArrayList<Projectile> projectiles = new ArrayList();
 	Random random = new Random();
 
 	ArrayList<Alien> aliens = new ArrayList();
 
-	ObjectManager(int x, int y, int width, int height) {
-		super(x, y, width, height);
-
+	ObjectManager(Rocketship rocket) {
+		this.rocket = rocket;
 	}
 
 	void addProjectile(Projectile projectile) {
@@ -25,17 +24,22 @@ public class ObjectManager extends GameObject {
 	}
 
 	void update() {
+		
+		
+		rocket.update();
 		for (int i = 0; i < aliens.size(); i++) {
 			aliens.get(i).update();
 			if(aliens.get(i).y<=LeagueInvaders.HEIGHT) {
-				isActive = false;
+				aliens.get(i).isActive = false;
 			}
 		}
 	}
 
 	void draw(Graphics g) {
+		rocket.draw(g);
 		for(int i = 0; i<projectiles.size(); i++) {
 		 projectiles.get(i).draw(g);
+		 
 		}
 	}
 
