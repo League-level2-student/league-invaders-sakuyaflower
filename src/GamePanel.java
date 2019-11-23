@@ -12,16 +12,18 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
+	public static BufferedImage imageBackground;
 	public static BufferedImage image;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
+	
 	final int MENU = 0;
 	final int GAME = 1;
 	final int END = 2;
 	int currentState = MENU;
 	Font titleFont = new Font("Arial", Font.PLAIN, 48);
 	Font smallerFont = new Font("Arial", Font.PLAIN, 28);
-	
+	Timer alienSpawn;
 	Rocketship rocket = new Rocketship(250, 700, 50, 50);
 	ObjectManager manager = new ObjectManager(rocket);
 
@@ -37,9 +39,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			drawEndState(g);
 		}
 	}
-GamePanel(){
-	
+
+	void startGame() {
+		alienSpawn = new Timer(1000, manager);
+		alienSpawn.start();
+	}
+
+	void endGame() {
+		alienSpawn.stop();
+	}
+
+	GamePanel() {
+if(needImage) {
+	loadImage("rocket.png");
 }
+	}
+
 	JPanel JP = new JPanel();
 
 	void updateMenuState() {
@@ -69,13 +84,15 @@ GamePanel(){
 	}
 
 	void drawGameState(Graphics g) {
-		manager.draw(g);
+		
 		if (gotImage) {
-			g.drawImage(image, 0, 0, WIDTH, HEIGHT, null);
+			g.drawImage(imageBackground, 0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT, null);
 		} else {
 			g.setColor(Color.BLUE);
-			g.fillRect(500, 800, WIDTH, HEIGHT);
+			g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 		}
+		manager.draw(g);
+		manager.addProjectile(rocket.getProjectile());
 	}
 
 	void drawEndState(Graphics g) {
@@ -94,8 +111,10 @@ GamePanel(){
 			updateMenuState();
 		} else if (currentState == GAME) {
 			updateGameState();
+		
 		} else if (currentState == END) {
 			updateEndState();
+	
 		}
 		// System.out.println("Action");
 		repaint();
@@ -113,10 +132,13 @@ GamePanel(){
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == END) {
 				currentState = MENU;
+				
 			}
-
 			else {
 				currentState++;
+			}
+			if(currentState == GAME) {
+				startGame();
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP && rocket.y >= 0) {
@@ -142,6 +164,7 @@ GamePanel(){
 		if (needImage) {
 			try {
 				image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+				imageBackground = ImageIO.read(this.getClass().getResourceAsStream("space.png"));
 				gotImage = true;
 			} catch (Exception e) {
 

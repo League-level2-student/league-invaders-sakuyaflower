@@ -20,21 +20,11 @@ public class Alien extends GameObject {
 	void update() {
 		y+=speed;
 	}
-
-	void draw(Graphics g) {
-		g.setColor(Color.YELLOW);
-		g.fillRect(x, y, width, height);
-		if (gotImage) {
-			g.drawImage(image, x, y, width, height, null);
-		} else {
-			g.setColor(Color.BLUE);
-			g.fillRect(x, y, width, height);
-		}
-	}
 	void loadImage(String imageFile) {
 	    if (needImage) {
 	        try {
-	            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+	            image = ImageIO.read(this.getClass().getResourceAsStream(""
+	            		+ "alien.png"));
 		    gotImage = true;
 	        } catch (Exception e) {
 	            
@@ -42,4 +32,13 @@ public class Alien extends GameObject {
 	        needImage = false;
 	    }
 	}
-}
+	void draw(Graphics g) {
+		if (gotImage) {
+			g.drawImage(image, x, y, width, height, null);
+		} else {
+			g.setColor(Color.BLUE);
+			g.fillRect(x, y, width, height);
+		}
+	}
+	
+	}
