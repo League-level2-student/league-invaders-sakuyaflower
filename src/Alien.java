@@ -19,12 +19,13 @@ public class Alien extends GameObject {
 
 	void update() {
 		y+=speed;
+		System.out.println(y);
+		super.update();
 	}
 	void loadImage(String imageFile) {
 	    if (needImage) {
 	        try {
-	            image = ImageIO.read(this.getClass().getResourceAsStream(""
-	            		+ "alien.png"));
+	            image = ImageIO.read(this.getClass().getResourceAsStream("alien.png"));
 		    gotImage = true;
 	        } catch (Exception e) {
 	            
@@ -39,6 +40,7 @@ public class Alien extends GameObject {
 			g.setColor(Color.BLUE);
 			g.fillRect(x, y, width, height);
 		}
+	System.out.println("x =" + x + "y=" + y + "speed =" + speed);
 	}
 	
 	}

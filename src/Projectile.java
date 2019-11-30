@@ -9,7 +9,7 @@ public class Projectile extends GameObject{
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
 
-	int speed = 10;
+	int speed = 2;
 
 	Projectile(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -20,6 +20,7 @@ public class Projectile extends GameObject{
 
 	void update() {
 		y-=speed;
+		super.update();
 	}
 
 	void draw(Graphics g) {
@@ -37,7 +38,6 @@ public class Projectile extends GameObject{
 	            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
 		    gotImage = true;
 	        } catch (Exception e) {
-	            
 	        }
 	        needImage = false;
 	    }

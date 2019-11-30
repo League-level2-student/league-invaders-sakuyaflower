@@ -22,12 +22,12 @@ public class ObjectManager implements ActionListener {
 
 	void addAlien() {
 		aliens.add(new Alien(random.nextInt(LeagueInvaders.WIDTH), 0, 50, 50));
-
+System.out.println("add");
 	}
 
 	void update() {
-
 		rocket.update();
+		
 		for (int i = 0; i < aliens.size(); i++) {
 			aliens.get(i).update();
 			if (aliens.get(i).y <= LeagueInvaders.HEIGHT) {
@@ -39,16 +39,18 @@ public class ObjectManager implements ActionListener {
 			if (projectiles.get(i).y <= LeagueInvaders.HEIGHT) {
 				projectiles.get(i).isActive = false;
 			}
-		}
+	}
 	}
 
 	void draw(Graphics g) {
 	
 		rocket.draw(g);
-	for(int i = 0; i< aliens.size(); i++) {
+System.out.println("num aliens" + aliens.size());	
+		for(int i = 0; i< aliens.size(); i++) {
 		aliens.get(i).draw(g);
 	}
-	for(int i = 0; i< projectiles.size(); i++) {
+		System.out.println("num pro" + projectiles.size());	
+		for(int i = 0; i< projectiles.size(); i++) {
 		projectiles.get(i).draw(g);
 	}
 	}

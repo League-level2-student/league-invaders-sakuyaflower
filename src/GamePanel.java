@@ -16,7 +16,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage image;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
-	
+
 	final int MENU = 0;
 	final int GAME = 1;
 	final int END = 2;
@@ -29,8 +29,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		Timer frameDraw = new Timer(1000 / 100, this);
-		frameDraw.start();
+		
 		if (currentState == MENU) {
 			drawMenuState(g);
 		} else if (currentState == GAME) {
@@ -41,8 +40,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void startGame() {
-		alienSpawn = new Timer(1000, manager);
+		alienSpawn = new Timer(2000, manager);
 		alienSpawn.start();
+		Timer frameDraw = new Timer(1000 / 60, this);
+		frameDraw.start();
 	}
 
 	void endGame() {
@@ -50,19 +51,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	GamePanel() {
-if(needImage) {
-	loadImage("rocket.png");
-}
+		if (needImage) {
+			loadImage("rocket.png");
+		}
 	}
 
 	JPanel JP = new JPanel();
 
 	void updateMenuState() {
-		manager.update();
+
 	}
 
 	void updateGameState() {
-
+		manager.update();
 	}
 
 	void updateEndState() {
@@ -84,15 +85,17 @@ if(needImage) {
 	}
 
 	void drawGameState(Graphics g) {
-		
+
 		if (gotImage) {
 			g.drawImage(imageBackground, 0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT, null);
 		} else {
 			g.setColor(Color.BLUE);
 			g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 		}
-		manager.draw(g);
-		manager.addProjectile(rocket.getProjectile());
+		
+		//manager.addProjectile(rocket.getProjectile());
+		manager.draw(g); 
+	
 	}
 
 	void drawEndState(Graphics g) {
@@ -111,10 +114,10 @@ if(needImage) {
 			updateMenuState();
 		} else if (currentState == GAME) {
 			updateGameState();
-		
+
 		} else if (currentState == END) {
 			updateEndState();
-	
+
 		}
 		// System.out.println("Action");
 		repaint();
@@ -131,13 +134,13 @@ if(needImage) {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == END) {
+				endGame();
 				currentState = MENU;
-				
-			}
-			else {
+
+			} else {
 				currentState++;
 			}
-			if(currentState == GAME) {
+			if (currentState == GAME) {
 				startGame();
 			}
 		}
@@ -146,8 +149,8 @@ if(needImage) {
 			rocket.down();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN && rocket.y <= 700) {
-			System.out.println("down");
 			rocket.up();
+			System.out.println("down");
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT && rocket.x >= 0) {
 			System.out.println("left");
@@ -157,6 +160,11 @@ if(needImage) {
 			System.out.println("right");
 			rocket.right();
 		}
+		if (e.getKeyCode() == KeyEvent.VK_SPACE ) {
+			manager.addProjectile(rocket.getProjectile());
+		}
+		
+		
 
 	}
 
