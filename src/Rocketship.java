@@ -12,12 +12,11 @@ public class Rocketship extends GameObject {
 
 	Rocketship(int x, int y, int width, int height) {
 		super(x, y, width, height);
+		super.speed = 15;
 		if (needImage) {
 			loadImage("rocket.png");
 		}
 	}
-
-	int speed = 15;
 
 	void draw(Graphics g) {
 

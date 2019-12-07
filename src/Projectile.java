@@ -9,7 +9,7 @@ public class Projectile extends GameObject{
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
 
-	int speed = 2;
+	int speed = 5;
 
 	Projectile(int x, int y, int width, int height) {
 		super(x, y, width, height);

@@ -64,6 +64,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void updateGameState() {
 		manager.update();
+		
 	}
 
 	void updateEndState() {

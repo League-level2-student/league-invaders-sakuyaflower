@@ -5,13 +5,15 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class Alien extends GameObject {
-	int speed = 1;
+	
 	public static BufferedImage image;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
 
 	Alien(int x, int y, int width, int height) {
 		super(x, y, width, height);
+		
+		super.speed = 1;
 		if (needImage) {
 			loadImage("alien.png");
 		}
@@ -19,7 +21,7 @@ public class Alien extends GameObject {
 
 	void update() {
 		y+=speed;
-		System.out.println(y);
+		
 		super.update();
 	}
 	void loadImage(String imageFile) {
@@ -40,7 +42,6 @@ public class Alien extends GameObject {
 			g.setColor(Color.BLUE);
 			g.fillRect(x, y, width, height);
 		}
-	System.out.println("x =" + x + "y=" + y + "speed =" + speed);
 	}
 	
 	}
