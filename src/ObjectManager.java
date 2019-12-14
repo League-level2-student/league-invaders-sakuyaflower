@@ -8,9 +8,15 @@ public class ObjectManager implements ActionListener {
 	Rocketship rocket;
 	ArrayList<Projectile> projectiles = new ArrayList();
 	Random random = new Random();
-
+	int score = 0;
 	ArrayList<Alien> aliens = new ArrayList();
 
+	void getScore(){
+		if(checkCollison) {
+			
+		}
+	}
+	
 	ObjectManager(Rocketship rocket) {
 		this.rocket = rocket;
 	}
@@ -63,7 +69,7 @@ public class ObjectManager implements ActionListener {
 			}
 			for (int j = 0; j < projectiles.size(); j++) {
 				if (aliens.get(i).collisionBox.intersects(projectiles.get(j).collisionBox)) {
-					aliens.get(j).isActive = false;
+					aliens.get(i).isActive = false;
 					projectiles.get(j).isActive = false;
 					System.out.println("Alien is killed by projectiles");
 				}
