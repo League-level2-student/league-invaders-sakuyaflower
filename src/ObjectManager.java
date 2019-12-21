@@ -11,10 +11,8 @@ public class ObjectManager implements ActionListener {
 	int score = 0;
 	ArrayList<Alien> aliens = new ArrayList();
 
-	void getScore(){
-		if(checkCollison) {
-			
-		}
+	public int getScore(){
+		return this.score;
 	}
 	
 	ObjectManager(Rocketship rocket) {
@@ -33,8 +31,7 @@ public class ObjectManager implements ActionListener {
 
 	void update() {
 		rocket.update();
-
-		for (int i = 0; i < aliens.size(); i++) {
+	for (int i = 0; i < aliens.size(); i++) {
 			aliens.get(i).update();
 			if (aliens.get(i).y >= LeagueInvaders.HEIGHT) {
 				aliens.get(i).isActive = false;
@@ -64,15 +61,15 @@ public class ObjectManager implements ActionListener {
 	void checkCollision() {
 		for (int i = 0; i < aliens.size(); i++) {
 			if (rocket.collisionBox.intersects(aliens.get(i).collisionBox)) {
-				aliens.get(i).isActive = false;
-				System.out.println("Alien is killed by rocket");
+				rocket.isActive = false;
 			}
+			
 			for (int j = 0; j < projectiles.size(); j++) {
 				if (aliens.get(i).collisionBox.intersects(projectiles.get(j).collisionBox)) {
 					aliens.get(i).isActive = false;
-					projectiles.get(j).isActive = false;
-					System.out.println("Alien is killed by projectiles");
-				}
+					projectiles.get(j).isActive = false;			
+					score++;		
+					}
 			}
 		}
 		

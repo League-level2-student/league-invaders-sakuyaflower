@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void startGame() {
-		alienSpawn = new Timer(2000, manager);
+		alienSpawn = new Timer(1000, manager);
 		alienSpawn.start();
 		Timer frameDraw = new Timer(1000 / 60, this);
 		frameDraw.start();
@@ -48,6 +48,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void endGame() {
 		alienSpawn.stop();
+		currentState = END;
+		
 	}
 
 	GamePanel() {
@@ -64,7 +66,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void updateGameState() {
 		manager.update();
-		if(rocket.isActive = false) {
+		if(rocket.isActive == false) {
 			endGame();
 		}
 		
@@ -99,7 +101,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		//manager.addProjectile(rocket.getProjectile());
 		manager.draw(g); 
-	
+g.setColor(Color.WHITE);
+	g.drawString("score:" + manager.getScore(), 50, 50);
 	}
 
 	void drawEndState(Graphics g) {
@@ -140,6 +143,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			if (currentState == END) {
 				endGame();
 				currentState = MENU;
+				rocket = new Rocketship(250, 700, 50, 50);
+				manager = new ObjectManager(rocket);
 
 			} else {
 				currentState++;
@@ -149,32 +154,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP && rocket.y >= 0) {
-			System.out.println("up");
 			rocket.down();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN && rocket.y <= 700) {
 			rocket.up();
-			System.out.println("down");
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT && rocket.x >= 0) {
-			System.out.println("left");
 			rocket.left();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT && rocket.x <= 450) {
-			System.out.println("right");
 			rocket.right();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE ) {
 			manager.addProjectile(rocket.getProjectile());
 		}
-		if(e.getKeyCode() == KeyEvent.VK_ENTER ) {
-			if(currentState == END) {
-				currentState = END;	
-			rocket = new Rocketship(250, 700, 50, 50);
-			}
-		}
-		
-
 	}
 
 	void loadImage(String imageFile) {
